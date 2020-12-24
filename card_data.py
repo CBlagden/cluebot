@@ -1,10 +1,11 @@
 from random import shuffle
+from enum import Enum
 
 class CardType(Enum):
   person = 1
   weapon = 2
   location = 3
-  
+
 
 cards = [
     {
@@ -57,6 +58,6 @@ def createShuffledDeck():
 
     for card in cards:
         deck.append(Card(card['name'], card['type']))
-    
+
     shuffle(deck)
     return deck
