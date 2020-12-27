@@ -60,14 +60,18 @@ class Game():
         message_to_send = "Your cards are: " + ", ".join(card.name for card in cards)
         await player.send(message_to_send)
 
-  def makeGuess(self, user, person, weapon, location):
-      # compare the guess with the answer
-
-      # Return if the guess was correct or not
-      self.players.remove(user)
-      return self.answer.person.name.lower() == person.lower() \
+  def makeAccusation(self, user, person, weapon, location):
+      isCorrect = self.answer.person.name.lower() == person.lower() \
             and self.answer.weapon.name.lower() == weapon.lower() \
             and self.answer.location.name.lower() == location.lower()
 
+      if not isCorrect:
+        self.players.remove(user)
+      
+      return isCorrect
+
   def isPlayerInGame(self, player):
     return player in self.players
+  
+  def getSolutionMessage(self):
+    return "{} was killed by {} in {}.".format(self.answer.person.name, self.answer.weapon.name, self.answer.location.name)
