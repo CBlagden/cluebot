@@ -38,11 +38,11 @@ async def creategame(ctx):
 
     # Enforce one game per text channel
     if channel_id in active_games:
-        await ctx.message.channel.send("There is already a game running in this text channel.  Please wait for it to end, or create a game in a different text channel.")
+        await ctx.message.reply("There is already a game running in this text channel.  Please wait for it to end, or create a game in a different text channel.")
         return
 
     # send message 'react to this to be added to game
-    signup_message = await ctx.message.channel.send('React to be added to the game!')
+    signup_message = await ctx.message.reply('React to be added to the game!')
     await signup_message.add_reaction('👍')
     # Create a game and add to active games list
     game = Game(channel_id, signup_message.id)
@@ -55,7 +55,7 @@ async def startgame(ctx):
 
     # Check that there is actually a game created in the channel
     if channel_id not in active_games:
-        await ctx.message.channel.send("There is no game in this channel.  Create a game with the creategame command!")
+        await ctx.message.reply("There is no game in this channel.  Create a game with the creategame command!")
         return
 
     game = active_games[channel_id]
@@ -68,27 +68,33 @@ async def startgame(ctx):
                 game.enrollPlayer(user)
 
     await game.startGame()
-    await ctx.message.channel.send("The game has started!  Please check your DMs to see which cards you got.  When you are ready to submit a guess, use the ~makeguess command")
+    await ctx.message.reply("The game has started!  Please check your DMs to see which cards you got.  When you are ready to submit a guess, use the ~makeguess command")
 
 
 @bot.command()
-async def makeguess(ctx, player, weapon, location):
+async def makeguess(ctx, person, weapon, location):
     channel_id = ctx.message.channel.id
 
     if channel_id not in active_games:
-        await ctx.message.channel.send("There is no game in this channel.  Create a game with the creategame command!")
+        await ctx.message.reply("There is no game in this channel.  Create a game with the creategame command!")
         return
 
     game = active_games[channel_id]
 
-    isCorrect = game.makeGuess(player, weapon, location)
+    # Check that the user sending the message is an active player in the game
+    if not game.isPlayerInGame(ctx.message.author):
+        await ctx.message.reply("You are not in this game, so you cannot submit a guess.  If you would like to play, please enroll in the next game.")
+        return
 
+    isCorrect = game.makeGuess(ctx.message.author, person, weapon, location)
     if (isCorrect):
         # Make the game end somehow
-        pass
+        del active_games[channel_id]
+        await ctx.message.reply("Congratulations {}! You are right!".format(ctx.message.author.name))
     else:
-        # Mark the person who guessed wrong as no longer a player
-        pass
+        # Mark the person who guessed wrong as no longer a player    
+        
+        await ctx.message.reply("You are wrong {}.".format(ctx.message.author.name))
 
 
 @bot.event
