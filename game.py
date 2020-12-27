@@ -18,6 +18,7 @@ class Game():
 
     # Fill in on game start
     self.players = set()
+    self.started = False
 
   def createAnswer(self):
     selected_cards = {}
@@ -37,6 +38,8 @@ class Game():
     self.players.add(user)
 
   async def startGame(self):
+    self.started = True
+
     # Map players to cards
     card_allotment = {}
     player_list = list(self.players)
@@ -56,15 +59,15 @@ class Game():
 
         message_to_send = "Your cards are: " + ", ".join(card.name for card in cards)
         await player.send(message_to_send)
-  
+
   def makeGuess(self, user, person, weapon, location):
       # compare the guess with the answer
 
       # Return if the guess was correct or not
       self.players.remove(user)
-      return self.answer.person.name.lower() == person.lower()
-            and self.answer.weapon.name.lower() == weapon.lower()
+      return self.answer.person.name.lower() == person.lower() \
+            and self.answer.weapon.name.lower() == weapon.lower() \
             and self.answer.location.name.lower() == location.lower()
-  
+
   def isPlayerInGame(self, player):
     return player in self.players
