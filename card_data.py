@@ -9,41 +9,77 @@ class CardType(Enum):
 
 cards = [
     {
-        'name' : 'Irene',
+        'name' : 'Chili Czar',
         'type' : CardType.person
     },
     {
-        'name' : 'Michael',
+        'name' : 'Chainsaw',
         'type' : CardType.person
     },
     {
-        'name' : 'Chase',
+        'name' : 'Damage Control',
         'type' : CardType.person
     },
     {
-        'name' : 'gun',
-        'type' : CardType.weapon
+        'name': 'Bookie',
+        'type': CardType.person
     },
     {
-        'name' : 'knife',
-        'type' : CardType.weapon
+        'name': 'Head Waiter',
+        'type': CardType.person
     },
     {
-        'name' : 'club',
-        'type' : CardType.weapon
+        'name': 'Frosh',
+        'type': CardType.person
     },
     {
-        'name' : 'Hell',
-        'type' : CardType.location
+        'name': 'Potato Cannon',
+        'type': CardType.weapon
     },
     {
-        'name' : 'Lounge',
-        'type' : CardType.location
+        'name': 'Lead Brick',
+        'type': CardType.weapon
     },
     {
-        'name' : 'Heaven',
-        'type' : CardType.location
-    }
+        'name': 'The Ride',
+        'type': CardType.weapon
+    },
+    {
+        'name': 'Epoxy Quesadilla',
+        'type': CardType.weapon
+    },
+    {
+        'name': 'Snek',
+        'type': CardType.weapon
+    },
+    {
+        'name': 'The Presidential Democracy Axe',
+        'type': CardType.weapon
+    },
+    {
+        'name': 'Tapestry',
+        'type': CardType.location
+    },
+    {
+        'name': 'Gondor',
+        'type': CardType.location
+    },
+    {
+        'name': 'Hell',
+        'type': CardType.location
+    },
+    {
+        'name': 'Library',
+        'type': CardType.location
+    },
+    {
+        'name': 'Tool Room',
+        'type': CardType.location
+    },
+    {
+        'name': 'Pub Kitchen',
+        'type': CardType.location
+    },
 ]
 
 
