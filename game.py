@@ -74,4 +74,4 @@ class Game():
     return player in self.players
   
   def getSolutionMessage(self):
-    return "{} was killed by {} in {}.".format(self.answer.person.name, self.answer.weapon.name, self.answer.location.name)
+    return "{} killed Humpy with {} in {}.".format(self.answer.person.name, self.answer.weapon.name, self.answer.location.name)
